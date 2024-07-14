@@ -1,5 +1,8 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:appv2/pages/login.dart';
 import 'package:appv2/pages/myCars.dart';
+import 'package:appv2/pages/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:appv2/provider.dart';
@@ -31,13 +34,18 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key});
-
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   String value = "none";
+  void Logout() {
+    ref.read(roleProvider.notifier).update((state) => 5);
+    ref.read(indexBottomNavbarProvider.notifier).update((state) => 0);
+    storage.deleteAll();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +121,7 @@ class _MainScreen extends ConsumerState<MainScreen> {
         ];
       }
     }
+
     if (role == 2) {
       bodies = [
         const MyHomePage(),
@@ -129,7 +138,7 @@ class _MainScreen extends ConsumerState<MainScreen> {
       bodies = [
         const MyHomePage(),
         const Mycars(),
-        LoginPage(),
+        const Settings(),
       ];
     } else {
       bodies = [
