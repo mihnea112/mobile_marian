@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:appv2/pages/login.dart';
+import 'package:appv2/pages/mecanicDash.dart';
 import 'package:appv2/pages/myCars.dart';
 import 'package:appv2/pages/settings.dart';
 import 'package:flutter/material.dart';
@@ -103,6 +104,8 @@ class _MainScreen extends ConsumerState<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
               icon: Icon(Icons.car_rental), label: 'Cars&Jobs'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Settings'),
         ];
       } else if (role == 0) {
         return const [
@@ -131,8 +134,8 @@ class _MainScreen extends ConsumerState<MainScreen> {
     } else if (role == 1) {
       bodies = [
         const MyHomePage(),
-        LoginPage(),
-        LoginPage(),
+        const Mecanicdash(),
+        const Settings(),
       ];
     } else if (role == 0) {
       bodies = [

@@ -1,16 +1,18 @@
 import 'package:appv2/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:appv2/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Settings extends StatefulWidget {
+class Settings extends ConsumerStatefulWidget {
   const Settings({super.key});
 
   @override
-  State<Settings> createState() => _SettingsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Settings();
 }
 
-class _SettingsState extends State<Settings> {
+class _Settings extends ConsumerState<Settings> {
   TextEditingController nameController = TextEditingController();
   TextEditingController adressController = TextEditingController();
   TextEditingController telephoneController = TextEditingController();
@@ -76,6 +78,9 @@ class _SettingsState extends State<Settings> {
           )),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          ref.read(roleProvider.notifier).update((state) => 5);
+          ref.read(indexBottomNavbarProvider.notifier).update((state) => 0);
+          storage.deleteAll();
         },
         tooltip: 'Logout',
         child: const Icon(Icons.login_outlined),
