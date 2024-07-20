@@ -172,24 +172,32 @@ class _JobPageState extends State<JobPage> {
                       ),
                     ),
                     Align(
-                      alignment: Alignment.center,
-                      child: DropdownMenu<String>(
-                        helperText: "Status",
-                        textStyle: TextStyle(color: Color(0xFFA5D7E8)),
-                        initialSelection: job[0]['status'],
-                        dropdownMenuEntries:
-                            list.map<DropdownMenuEntry<String>>((String value) {
-                          return DropdownMenuEntry<String>(
-                              value: value, label: value);
-                        }).toList(),
-                        onSelected: (String? value) {
-                          updateStatus(value);
-                          setState(() {
-                            dropdownValue = value!;
-                          });
-                        },
-                      ),
-                    )
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Status',
+                              style: TextStyle(color: Color(0xFFA5D7E8)),
+                            ),
+                            DropdownMenu<String>(
+                              textStyle:
+                                  const TextStyle(color: Color(0xFFA5D7E8)),
+                              initialSelection: job[0]['status'],
+                              dropdownMenuEntries: list
+                                  .map<DropdownMenuEntry<String>>(
+                                      (String value) {
+                                return DropdownMenuEntry<String>(
+                                    value: value, label: value);
+                              }).toList(),
+                              onSelected: (String? value) {
+                                updateStatus(value);
+                                setState(() {
+                                  dropdownValue = value!;
+                                });
+                              },
+                            ),
+                          ],
+                        ))
                   ],
                 ),
           inspections.isEmpty
@@ -199,26 +207,37 @@ class _JobPageState extends State<JobPage> {
                     itemCount: inspections.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        color: const Color(0xFF576CBC),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        padding: const EdgeInsets.all(10),
-                        child: Slider(
-                          value: inspections[index]['val'].toDouble(),
-                          max: 2,
-                          divisions: 2,
-                          label: inspections[index]['val'].round().toString(),
-                          onChanged: (double value) async {
-                            bool res = await updateInspection(
-                                value.toInt(), inspections[index]['id']);
-                            if (res == true) {
-                              setState(() {
-                                inspections[index]['val'] = value.toInt();
-                              });
-                            }
-                          },
-                        ),
-                      );
+                          // color: const Color(0xFF576CBC),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              Text(
+                                '${inspections[index]['item_name']}',
+                                style:
+                                    const TextStyle(color: Color(0xFFA5D7E8)),
+                              ),
+                              Slider(
+                                value: inspections[index]['val'].toDouble(),
+                                max: 2,
+                                divisions: 2,
+                                activeColor: Color(0xFFA5D7E8),
+                                label: inspections[index]['val']
+                                    .round()
+                                    .toString(),
+                                onChanged: (double value) async {
+                                  bool res = await updateInspection(
+                                      value.toInt(), inspections[index]['id']);
+                                  if (res == true) {
+                                    setState(() {
+                                      inspections[index]['val'] = value.toInt();
+                                    });
+                                  }
+                                },
+                              ),
+                            ],
+                          ));
                     },
                   ),
                 ),
