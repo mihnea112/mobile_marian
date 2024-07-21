@@ -40,13 +40,6 @@ class MyHomePage extends ConsumerStatefulWidget {
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
-  String value = "none";
-  void Logout() {
-    ref.read(roleProvider.notifier).update((state) => 5);
-    ref.read(indexBottomNavbarProvider.notifier).update((state) => 0);
-    storage.deleteAll();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,9 +48,19 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              value,
-              style: Theme.of(context).textTheme.headlineMedium,
+            Image.network(
+              'https://marian-app-client.vercel.app/img/logo.png',
+              width: 200,
+              height: 200,
+            ),
+            const Text(
+              "Bine ati venit in aplicatie",
+              style: TextStyle(
+                  color: Color(0xFFA5D7E8), fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              "Smart Service App",
+              style: TextStyle(color: Color(0xFFA5D7E8)),
             ),
           ],
         ),

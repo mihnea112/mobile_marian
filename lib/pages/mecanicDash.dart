@@ -41,7 +41,10 @@ class _MecanicdashState extends State<Mecanicdash> {
       debugPrint('Exception: $e');
     }
   }
-
+ Future<void> refresh() async {
+    await getCarsFromApi();
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +67,7 @@ class _MecanicdashState extends State<Mecanicdash> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => JobPage(id: cars[index]['id'])),
-                    );
+                    ).then((value) => {refresh()});
                   },
                   child: Container(
                     color: const Color(0xFF576CBC),
