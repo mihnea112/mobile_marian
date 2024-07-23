@@ -222,7 +222,7 @@ class _JobPageState extends State<JobPage> {
                                 value: inspections[index]['val'].toDouble(),
                                 max: 2,
                                 divisions: 2,
-                                activeColor: Color(0xFFA5D7E8),
+                                activeColor: const Color(0xFFA5D7E8),
                                 label: inspections[index]['val']
                                     .round()
                                     .toString(),

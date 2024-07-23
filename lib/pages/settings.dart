@@ -25,13 +25,12 @@ class _Settings extends ConsumerState<Settings> {
   Future<void> getUserFromApi() async {
     try {
       String? token = await storage.read(key: "token");
-      Map regBody = {"token": token};
-      var body = json.encode(regBody);
-      var res = await http.post(Uri.parse("http://localhost:3002/userdata"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: body);
+      var res = await http.get(
+        Uri.parse("http://localhost:3002/userdata?token=$token"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
       if (res.statusCode == 201) {
         setState(() {
           final decode = jsonDecode(res.body);
@@ -42,6 +41,24 @@ class _Settings extends ConsumerState<Settings> {
       }
     } catch (e) {
       debugPrint('Exception: $e');
+    }
+  }
+
+  Future<bool> updateData() async {
+    String? token = await storage.read(key: "token");
+    var regBody = {
+      "token": token,
+      "name": nameController.text,
+      "adresa": adressController.text,
+      "telefon": telephoneController.text,
+    };
+    var res = await http.post(Uri.parse("http://localhost:3002/userdata/edit"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(regBody));
+    if (res.statusCode == 201) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -73,7 +90,14 @@ class _Settings extends ConsumerState<Settings> {
                 decoration: const InputDecoration(labelText: 'Telefon'),
               ),
               TextButton(
-                  onPressed: () async {}, child: const Text("Edit Data")),
+                  onPressed: () async {
+                    bool res = await updateData();
+                    if (res) {
+                      await getUserFromApi();
+                      setState(() {});
+                    }
+                  },
+                  child: const Text("Edit Data")),
             ],
           )),
       floatingActionButton: FloatingActionButton(
