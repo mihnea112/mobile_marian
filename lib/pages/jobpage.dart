@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:appv2/main.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _JobPageState extends State<JobPage> {
   List<Map<String, dynamic>> inspections = [];
   int carId = 0;
   String dropdownValue = '';
+  TextEditingController deadlineController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -46,6 +48,7 @@ class _JobPageState extends State<JobPage> {
           final decode = jsonDecode(res.body);
           job = List<Map<String, dynamic>>.from(decode);
           carId = decode[0]['carId'];
+          deadlineController.text = decode[0]['deadline'];
         });
       }
     } catch (e) {
@@ -107,6 +110,25 @@ class _JobPageState extends State<JobPage> {
         final decode = jsonDecode(res.body);
         job = List<Map<String, dynamic>>.from(decode);
       });
+    }
+  }
+
+  Future<bool> updateDeadline() async {
+    String? token = await storage.read(key: "token");
+    var regBody = {
+      "id": job[0]['id'],
+      "token": token,
+      "deadline": deadlineController.text,
+      "nPlate": cars[0]['nPlate'],
+      "uId": cars[0]['userId']
+    };
+    var res = await http.post(Uri.parse("http://localhost:3002/deadline"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(regBody));
+    if (res.statusCode == 201) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -196,6 +218,25 @@ class _JobPageState extends State<JobPage> {
                                 });
                               },
                             ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: TextField(
+                                selectionWidthStyle: BoxWidthStyle.tight,
+                                controller: deadlineController,
+                                decoration: const InputDecoration(
+                                    labelText: 'Deadline'),
+                              ),
+                            ),
+                            TextButton(
+                                onPressed: () async {
+                                  bool res = await updateDeadline();
+                                  if (res) {
+                                    await getJobFromApi();
+                                    setState(() {});
+                                  }
+                                },
+                                child: const Text("Edit Data")),
                           ],
                         ))
                   ],

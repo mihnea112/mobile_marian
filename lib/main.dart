@@ -65,15 +65,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          ref.read(roleProvider.notifier).update((state) => 5);
-          ref.read(indexBottomNavbarProvider.notifier).update((state) => 0);
-          storage.deleteAll();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

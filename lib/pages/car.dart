@@ -125,6 +125,11 @@ class _CarPageState extends State<CarPage> {
                                     style: const TextStyle(
                                         color: Color(0xFFA5D7E8)),
                                   ),
+                                  Text(
+                                    'Deadline : ${jobs[index]['deadline']}',
+                                    style: const TextStyle(
+                                        color: Color(0xFFA5D7E8)),
+                                  ),
                                 ],
                               ),
                             );
@@ -137,8 +142,7 @@ class _CarPageState extends State<CarPage> {
         onPressed: () async {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) =>  AddJob(id: cars[0]['id'])),
+            MaterialPageRoute(builder: (context) => AddJob(id: cars[0]['id'])),
           ).then((value) => {refresh()});
         },
         tooltip: 'Add Job',
