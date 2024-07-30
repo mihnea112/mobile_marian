@@ -65,7 +65,7 @@ class _MycarsState extends State<Mycars> {
         backgroundColor: const Color(0xFF19376D),
       ),
       body: cars.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child:Text("No cars yet. Click + buttton to add one!", style:  TextStyle(color: Color(0xFFA5D7E8))))
           : ListView.builder(
               itemCount: cars.length,
               itemBuilder: (context, index) {

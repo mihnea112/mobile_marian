@@ -114,18 +114,12 @@ class _MainScreen extends ConsumerState<MainScreen> {
       } else {
         return const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.login), label: 'Login'),
+          BottomNavigationBarItem(icon: Icon(Icons.login), label: 'Login/Register'),
         ];
       }
     }
 
-    if (role == 2) {
-      bodies = [
-        const MyHomePage(),
-        LoginPage(),
-        LoginPage(),
-      ];
-    } else if (role == 1) {
+     if (role == 1) {
       bodies = [
         const MyHomePage(),
         const Mecanicdash(),
