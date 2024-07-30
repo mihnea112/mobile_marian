@@ -19,7 +19,8 @@ class _AddCarState extends State<AddCar> {
   Future<bool> addCar(String nPlate, String vin) async {
     String? token = await storage.read(key: "token");
     var regBody = {"token": token, "nPlate": nPlate, "VIN": vin};
-    var res = await http.post(Uri.parse("http://localhost:3002/car/add"),
+    var res = await http.post(
+        Uri.parse("https://marian-app-api.vercel.app/car/add"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
     if (res.statusCode == 201) {
@@ -31,8 +32,7 @@ class _AddCarState extends State<AddCar> {
 
   void displayDialog(context, title) => showDialog(
         context: context,
-        builder: (context) =>
-            AlertDialog(title: Text(title)),
+        builder: (context) => AlertDialog(title: Text(title)),
       );
   @override
   Widget build(BuildContext context) {
@@ -51,12 +51,19 @@ class _AddCarState extends State<AddCar> {
           children: [
             TextField(
               controller: vinController,
-              decoration: const InputDecoration(labelText: 'Serie Sasiu/Vin'),
+              decoration: const InputDecoration(
+                labelText: 'Serie Sasiu/Vin',
+                labelStyle: TextStyle(color: Color(0xFFA5D7E8)),
+              ),
+              style: const TextStyle(color: Color(0xFFA5D7E8)),
             ),
             TextField(
               controller: nPlateController,
-              decoration:
-                  const InputDecoration(labelText: 'Numar inmatriculare'),
+              decoration: const InputDecoration(
+                labelText: 'Numar inmatriculare',
+                labelStyle: TextStyle(color: Color(0xFFA5D7E8)),
+              ),
+              style: const TextStyle(color: Color(0xFFA5D7E8)),
             ),
             TextButton(
                 onPressed: () async {

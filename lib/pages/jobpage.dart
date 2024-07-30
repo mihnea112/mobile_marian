@@ -39,7 +39,7 @@ class _JobPageState extends State<JobPage> {
   Future<void> getJobFromApi() async {
     try {
       var res = await http.get(
-          Uri.parse("http://localhost:3002/jobs/${widget.id}"),
+          Uri.parse("https://marian-app-api.vercel.app/jobs/${widget.id}"),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
@@ -59,7 +59,7 @@ class _JobPageState extends State<JobPage> {
   Future<void> getCarsFromApi() async {
     try {
       var res = await http.get(
-        Uri.parse("http://localhost:3002/car/${widget.id}"),
+        Uri.parse("https://marian-app-api.vercel.app/car/${widget.id}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -78,7 +78,7 @@ class _JobPageState extends State<JobPage> {
   Future<void> getInspectionsFromApi() async {
     try {
       var res = await http.get(
-          Uri.parse("http://localhost:3002/inspect/$carId"),
+          Uri.parse("https://marian-app-api.vercel.app/inspect/$carId"),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
@@ -102,7 +102,8 @@ class _JobPageState extends State<JobPage> {
       "nPlate": cars[0]['nPlate'],
       "uId": cars[0]['userId']
     };
-    var res = await http.post(Uri.parse("http://localhost:3002/status"),
+    var res = await http.post(
+        Uri.parse("https://marian-app-api.vercel.app/status"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
     if (res.statusCode == 201) {
@@ -122,7 +123,8 @@ class _JobPageState extends State<JobPage> {
       "nPlate": cars[0]['nPlate'],
       "uId": cars[0]['userId']
     };
-    var res = await http.post(Uri.parse("http://localhost:3002/deadline"),
+    var res = await http.post(
+        Uri.parse("https://marian-app-api.vercel.app/deadline"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
     if (res.statusCode == 201) {
@@ -139,7 +141,8 @@ class _JobPageState extends State<JobPage> {
       "val": value,
       "token": token,
     };
-    var res = await http.post(Uri.parse("http://localhost:3002/inspection"),
+    var res = await http.post(
+        Uri.parse("https://marian-app-api.vercel.app/inspection"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
     if (res.statusCode == 201) {
@@ -225,7 +228,12 @@ class _JobPageState extends State<JobPage> {
                                 selectionWidthStyle: BoxWidthStyle.tight,
                                 controller: deadlineController,
                                 decoration: const InputDecoration(
-                                    labelText: 'Deadline'),
+                                  labelText: 'Deadline',
+                                  labelStyle:
+                                      TextStyle(color: Color(0xFFA5D7E8)),
+                                ),
+                                style:
+                                    const TextStyle(color: Color(0xFFA5D7E8)),
                               ),
                             ),
                             TextButton(

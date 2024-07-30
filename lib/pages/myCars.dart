@@ -26,11 +26,12 @@ class _MycarsState extends State<Mycars> {
       String? token = await storage.read(key: "token");
       Map regBody = {"token": token};
       var body = json.encode(regBody);
-      var res = await http.post(Uri.parse("http://localhost:3002/car"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: body);
+      var res =
+          await http.post(Uri.parse("https://marian-app-api.vercel.app/car"),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: body);
       if (res.statusCode == 201) {
         setState(() {
           final decode = jsonDecode(res.body);

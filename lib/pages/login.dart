@@ -22,7 +22,8 @@ class LoginPage extends ConsumerWidget {
   Future<Map<String, dynamic>?> attemptLogIn(
       String email, String password) async {
     var regBody = {"email": email, "password": password};
-    var res = await http.post(Uri.parse("http://localhost:3002/login"),
+    var res = await http.post(
+        Uri.parse("https://marian-app-api.vercel.app/login"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
     final parsedList = jsonDecode(res.body) as Map<String, dynamic>;
@@ -49,12 +50,20 @@ class LoginPage extends ConsumerWidget {
             child: Column(children: <Widget>[
               TextField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'Username'),
+                decoration: const InputDecoration(
+                  labelText: 'Username',
+                  labelStyle: TextStyle(color: Color(0xFFA5D7E8)),
+                ),
+                style: const TextStyle(color: Color(0xFFA5D7E8)),
               ),
               TextField(
                 controller: passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  labelStyle: TextStyle(color: Color(0xFFA5D7E8)),
+                ),
+                style: const TextStyle(color: Color(0xFFA5D7E8)),
               ),
               TextButton(
                   onPressed: () async {

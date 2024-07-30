@@ -17,7 +17,8 @@ class _AddJobState extends State<AddJob> {
   Future<bool> addJob(String task) async {
     String? token = await storage.read(key: "token");
     var regBody = {"token": token, "carId": widget.id, "tasks": task};
-    var res = await http.post(Uri.parse("http://localhost:3002/jobs/add"),
+    var res = await http.post(
+        Uri.parse("https://marian-app-api.vercel.app/jobs/add"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
     if (res.statusCode == 201) {
@@ -48,8 +49,11 @@ class _AddJobState extends State<AddJob> {
           children: [
             TextField(
               controller: taskController,
-              decoration:
-                  const InputDecoration(labelText: 'Descrie sarcina...'),
+              decoration: const InputDecoration(
+                labelText: 'Descrie sarcina...',
+                labelStyle: TextStyle(color: Color(0xFFA5D7E8)),
+              ),
+              style: const TextStyle(color: Color(0xFFA5D7E8)),
             ),
             TextButton(
                 onPressed: () async {

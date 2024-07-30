@@ -26,7 +26,8 @@ class _MecanicdashState extends State<Mecanicdash> {
       String? token = await storage.read(key: "token");
       Map regBody = {"token": token};
       var body = json.encode(regBody);
-      var res = await http.post(Uri.parse("http://localhost:3002/mecanic/car"),
+      var res = await http.post(
+          Uri.parse("https://marian-app-api.vercel.app/mecanic/car"),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -41,10 +42,12 @@ class _MecanicdashState extends State<Mecanicdash> {
       debugPrint('Exception: $e');
     }
   }
- Future<void> refresh() async {
+
+  Future<void> refresh() async {
     await getCarsFromApi();
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

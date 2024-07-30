@@ -26,7 +26,7 @@ class _Settings extends ConsumerState<Settings> {
     try {
       String? token = await storage.read(key: "token");
       var res = await http.get(
-        Uri.parse("http://localhost:3002/userdata?token=$token"),
+        Uri.parse("https://marian-app-api.vercel.app/userdata?token=$token"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -52,7 +52,8 @@ class _Settings extends ConsumerState<Settings> {
       "adresa": adressController.text,
       "telefon": telephoneController.text,
     };
-    var res = await http.post(Uri.parse("http://localhost:3002/userdata/edit"),
+    var res = await http.post(
+        Uri.parse("https://marian-app-api.vercel.app/userdata/edit"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(regBody));
     if (res.statusCode == 201) {
@@ -79,15 +80,27 @@ class _Settings extends ConsumerState<Settings> {
             children: <Widget>[
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Nume'),
+                decoration: const InputDecoration(
+                  labelText: 'Nume',
+                  labelStyle: TextStyle(color: Color(0xFFA5D7E8)),
+                ),
+                style: const TextStyle(color: Color(0xFFA5D7E8)),
               ),
               TextField(
                 controller: adressController,
-                decoration: const InputDecoration(labelText: 'Adresa'),
+                decoration: const InputDecoration(
+                  labelText: 'Adresa',
+                  labelStyle: TextStyle(color: Color(0xFFA5D7E8)),
+                ),
+                style: const TextStyle(color: Color(0xFFA5D7E8)),
               ),
               TextField(
                 controller: telephoneController,
-                decoration: const InputDecoration(labelText: 'Telefon'),
+                decoration: const InputDecoration(
+                  labelText: 'Telefon',
+                  labelStyle: TextStyle(color: Color(0xFFA5D7E8)),
+                ),
+                style: const TextStyle(color: Color(0xFFA5D7E8)),
               ),
               TextButton(
                   onPressed: () async {

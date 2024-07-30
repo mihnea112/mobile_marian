@@ -23,7 +23,7 @@ class _CarPageState extends State<CarPage> {
   Future<void> getCarsFromApi() async {
     try {
       var res = await http.get(
-        Uri.parse("http://localhost:3002/car/${widget.id}"),
+        Uri.parse("https://marian-app-api.vercel.app/car/${widget.id}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -42,7 +42,7 @@ class _CarPageState extends State<CarPage> {
   Future<void> getJobsFromApi() async {
     try {
       var res = await http.get(
-        Uri.parse("http://localhost:3002/job/${widget.id}"),
+        Uri.parse("https://marian-app-api.vercel.app/job/${widget.id}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
